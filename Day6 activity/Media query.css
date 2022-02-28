@@ -1,0 +1,14 @@
+.heading{
+    color: coral;
+}
+.sub-heading {
+    color: lime;
+}
+@media (max-width: 400px) and (min-width: 200px) {
+    .heading {
+        background-color:brown;
+    }
+    .sub-heading {
+        background-color: cornflowerblue;
+    }
+}
