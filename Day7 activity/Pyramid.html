@@ -4,67 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Pyramid</title>
 </head>
 <body>
-<h3>Diamond Payramid</h3>
-<script type="text/javascript">
-n = prompt("Enter a number to print Patterns!")
-for (i = 1; i <= n; i++) {
-  for (j = 1; j <= n - i; j++) {
-    document.write(' ')
-  }
-  for (k = 0; k < 2 * i - 1; k++) {
-    document.write('*')
-  }
-  document.write("<br />")
-  console.log();
-}
-for (i = 1; i <= n - 1; i++) {
-  for (j = 0; j < i; j++) {
-     document.write(' ');
-  }
-  for (k = (n - i) * 2 - 1; k > 0; k--) {
-    document.write('*');
-  }
-document.write("<br />")
+    <script>
+        document.write("<h2>Star Pyramid<h2><hr/>");
+        
+        for (var i=0; i<=6; i++){  
+            for (var k=1; k<=(6-i); k++){
+                document.write("&nbsp");
+            }
+            for (var j=1; j<=i; j++){
+                document.write(" * ")
+            } 
+            document.write("<br/>");
+        }
+    </script>
 
-  console.log();
-}
-</script>
-        </th>
-        <th>
-<h3>Pyramid</h3>
-<script>
-for (i = 1; i <= n; i++) {
-for (j = 1; j <= n - i; j++) {
-document.write(' ')
-}
-for (k = 0; k < 2 * i - 1; k++) {
-document.write('*')
-}
-document.write("<br/>")
-
-console.log();
-}
-</script>
-        </th>
-        <th>
-<h3>Reverse Pyramid</h3>
-<script>
-for (let i = 0; i < n; i++) {
-for (let j = 0; j < i; j++) {
-document.write(' ')
-}
-for (let k = 0; k < 2 * (n-i) - 1; k++) {
-document.write('*')
-}
-document.write("<br/>")
-console.log();
-}
-</script>
-        </th>
-    </tr>
-</table>
+    
 </body>
 </html>
