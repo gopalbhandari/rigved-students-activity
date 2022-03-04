@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Customer Details.</title>
+
+    <style>
+      table {
+        table-layout: fixed; width: 70%; border: 4px solid rgb(243, 180, 165); border-radius: 1px;
+        margin-right: 40%; color: rgb(19, 20, 15);
+      }
+
+      th, td {
+        padding: 10px; border: 1px solid rgb(39, 32, 95); text-align: center; border-radius: 2px; 
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <h3>Cricket Legends Table!!...</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Customer ID</th>
+          <th>Full Name</th>
+          <th>Name of State</th>
+          <th>Name of City</th>
+        </tr>
+      </thead>
+      <tbody id="tableData"></tbody>
+    </table>
+
+    <script>
+      var CustmId = [
+        {
+          customerId: 10,
+          firstName: "Sachin",
+          lastName: "Tendulkar",
+          address: { state:"Maharashtra", city: "Mumbai" },
+        },
+        {  
+          customerId: 45,
+          firstName: "Rohit",
+          lastName: "Sharma",
+          address: { state:"Maharashtra", city: "Pune" },
+        },
+        {
+          customerId: 19,
+          firstName: "Rahul",
+          lastName: "Dravid",
+          address: { state: "Karnataka", city: "Bengaluru" },
+        },
+        {
+          customerId: 07,
+          firstName: "MS",
+          lastName: "Dhoni",
+          address: { state: "Jharkhand", city: "Ranchi" },
+        },
+      ];
+
+      var table = "<tbody>";
+      for (i = 0; i < CustmId.length; i++) {
+        table += "<tr>";
+        table += "<td>" + CustmId[i].customerId + "</td>";
+        table += "<td>" + CustmId[i].firstName + " " + CustmId[i].lastName + "</td>";
+        table += "<td>" + CustmId[i].address.state + "</td>";
+        table += "<td>" + CustmId[i].address.city + "</td>";
+        table += "</tr>";
+      }
+      table += "</tbody>";
+      document.getElementById("tableData").innerHTML = table;
+    </script>
+  </body>
+</html>
