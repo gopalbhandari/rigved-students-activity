@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 1</title>
+    <style>
+        h3{
+            text-align: center;
+        }
+        table{
+            text-align: center;
+            margin-left: 50%;
+        }
+        a{
+            text-decoration: none;
+        }
+        button{
+            display: block;
+            text-align: center;
+            margin-left: 50%;
+        }
+    </style>
+</head>
+<body>
+    <h3>Customer Input Data</h3>
+    <table>
+        <tr>
+            <th>Name:</th>
+            <td><input type="text" name="fn" autocomplete="off" id="f1"></td>
+        </tr>
+        <tr>
+            <th>Age:</th>
+            <td><input type="number" name="age" autocomplete="off" id="a1"></td>
+        </tr>
+        <tr>
+            <th><input type="button" value="Save" onclick="storeUser();"></th>
+        </tr>
+    </table>
+    <button>
+        <a href="storage page2.html">Go to next page</a>
+    </button>
+    <script type="text/javascript">
+        function storeUser(){
+          var n1=document.getElementById('f1').value;
+          var a1=document.getElementById('a1').value;
+          if(n1.length<1 && a1.length<1){
+              alert('Data not entered')
+          } else {
+              sessionStorage.setItem('Name',n1);
+              sessionStorage.setItem('Age',a1)
+          }
+        }
+    </script>
+</body>
+</html>
