@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chain Table</title>
+</head>
+<body>
+    <h1 text-align-centre >Optional Chain Table</h1>
+    <script type = text/javascript>
+    let users = [
+    {name: "Alpha", age: 28, address:{state: "MH", city: "MUM" }},
+    {name: "Bravo", age: 35,},
+    {name: "Charlie", age: 51}, 
+    {name: "Delta", age: 29, address:{state: "KA", city: "BLR" }},
+    {name: "Echo", age: 46, address:{state: "TN", city: "CHN" }},
+    ];
+    document.write(`<table BORDER="10PX">`)
+    document.write(`<tr><th>Name</th> <th>Age</th> <th>State</th> <th>City</th></tr>`)
+    for( i=0; i<users.length; i++)
+    document.write(`<tr><td> ${users[i].name}</td><td> ${users[i].age}</td><td> ${users[i]?.address?.city}</td><td>  ${users[i]?.address?.state}</td></tr>`)
+    document.write(`</table>`)
+    
+    </script>
+    
+</body>
+</html>
