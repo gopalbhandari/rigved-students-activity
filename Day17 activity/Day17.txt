@@ -1,0 +1,194 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 24
+Server version: 8.0.28 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| books              |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> create database employee;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| books              |
+| employee           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> use database employee;
+ERROR 1049 (42000): Unknown database 'database'
+mysql> use employee;
+Database changed
+mysql> create table employee(employee_id int primary key, employee_name varchar(20) not null, age int check(age>=18 and age<=60), email_id varchar(30) unique);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc employee;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| employee_id   | int         | NO   | PRI | NULL    |       |
+| employee_name | varchar(20) | NO   |     | NULL    |       |
+| age           | int         | YES  |     | NULL    |       |
+| email_id      | varchar(30) | YES  | UNI | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into employee values(101,"Raj",25,"raj@gmail.com");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee;
++-------------+---------------+------+---------------+
+| employee_id | employee_name | age  | email_id      |
++-------------+---------------+------+---------------+
+|         101 | Raj           |   25 | raj@gmail.com |
++-------------+---------------+------+---------------+
+1 row in set (0.00 sec)
+
+mysql> insert into employee values(102,"Rajesh",65,"rajesh@gmail.com");
+ERROR 3819 (HY000): Check constraint 'employee_chk_1' is violated.
+mysql> insert into employee values(102,"Rajesh",55,"rajesh@gmail.com");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employee values(103,"Ramesh",41,"rajesh@gmail.com");
+ERROR 1062 (23000): Duplicate entry 'rajesh@gmail.com' for key 'employee.email_id'
+mysql> insert into employee values(103,"Ramesh",41,"ramesh@gmail.com");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> alter table employee add column PAN_number int unique;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table employee add column Aadhar_number int unique;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| employee_id   | int         | NO   | PRI | NULL    |       |
+| employee_name | varchar(20) | NO   |     | NULL    |       |
+| age           | int         | YES  |     | NULL    |       |
+| email_id      | varchar(30) | YES  | UNI | NULL    |       |
+| PAN_number    | int         | YES  | UNI | NULL    |       |
+| Aadhar_number | int         | YES  | UNI | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> insert into employee values(104,"Sumesh",36,"suresh@gmail.com",123456,789456);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from employee;
++-------------+---------------+------+------------------+------------+---------------+
+| employee_id | employee_name | age  | email_id         | PAN_number | Aadhar_number |
++-------------+---------------+------+------------------+------------+---------------+
+|         101 | Raj           |   25 | raj@gmail.com    |       NULL |          NULL |
+|         102 | Rajesh        |   55 | rajesh@gmail.com |       NULL |          NULL |
+|         103 | Ramesh        |   41 | ramesh@gmail.com |       NULL |          NULL |
+|         104 | Sumesh        |   36 | suresh@gmail.com |     123456 |        789456 |
++-------------+---------------+------+------------------+------------+---------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into employee values(105,"Alex",33,"alex@gmail.com",123456,789456);
+ERROR 1062 (23000): Duplicate entry '123456' for key 'employee.PAN_number'
+mysql> insert into employee values(105,"Alex",33,"alex@gmail.com",451245,789456);
+ERROR 1062 (23000): Duplicate entry '789456' for key 'employee.Aadhar_number'
+mysql> insert into employee values(105,"Alex",33,"alex@gmail.com",451245,);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> insert into employee values(105,"Alex",33,"alex@gmail.com",451245,254965);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from employee;
++-------------+---------------+------+------------------+------------+---------------+
+| employee_id | employee_name | age  | email_id         | PAN_number | Aadhar_number |
++-------------+---------------+------+------------------+------------+---------------+
+|         101 | Raj           |   25 | raj@gmail.com    |       NULL |          NULL |
+|         102 | Rajesh        |   55 | rajesh@gmail.com |       NULL |          NULL |
+|         103 | Ramesh        |   41 | ramesh@gmail.com |       NULL |          NULL |
+|         104 | Sumesh        |   36 | suresh@gmail.com |     123456 |        789456 |
+|         105 | Alex          |   33 | alex@gmail.com   |     451245 |        254965 |
++-------------+---------------+------+------------------+------------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> alter table employee drop column PAN_number;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table employee drop column Aadhar_number;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| employee_id   | int         | NO   | PRI | NULL    |       |
+| employee_name | varchar(20) | NO   |     | NULL    |       |
+| age           | int         | YES  |     | NULL    |       |
+| email_id      | varchar(30) | YES  | UNI | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee;
++-------------+---------------+------+------------------+
+| employee_id | employee_name | age  | email_id         |
++-------------+---------------+------+------------------+
+|         101 | Raj           |   25 | raj@gmail.com    |
+|         102 | Rajesh        |   55 | rajesh@gmail.com |
+|         103 | Ramesh        |   41 | ramesh@gmail.com |
+|         104 | Sumesh        |   36 | suresh@gmail.com |
+|         105 | Alex          |   33 | alex@gmail.com   |
++-------------+---------------+------+------------------+
+5 rows in set (0.00 sec)
+
+mysql> drop table employee;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from employee;
+ERROR 1146 (42S02): Table 'employee.employee' doesn't exist
+mysql> drop database employee;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| books              |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql>
