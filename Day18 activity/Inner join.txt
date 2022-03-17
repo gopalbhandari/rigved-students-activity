@@ -1,0 +1,136 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 25
+Server version: 8.0.28 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| books              |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+7 rows in set (0.01 sec)
+
+mysql> create database students;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| books              |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| students           |
+| sys                |
+| world              |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> use students;
+Database changed
+mysql> create table students(Roll_number int primary key, Student_name varchar(20), Age int);
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> desc students;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Roll_number  | int         | NO   | PRI | NULL    |       |
+| Student_name | varchar(20) | YES  |     | NULL    |       |
+| Age          | int         | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into students values(1,"Ramesh",22);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into students values(2,"Suresh",25);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into students values(3,"Rajendra",21);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into students values(4,"Surendra",27);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from students;
++-------------+--------------+------+
+| Roll_number | Student_name | Age  |
++-------------+--------------+------+
+|           1 | Ramesh       |   22 |
+|           2 | Suresh       |   25 |
+|           3 | Rajendra     |   21 |
+|           4 | Surendra     |   27 |
++-------------+--------------+------+
+4 rows in set (0.00 sec)
+
+mysql> create table marks(Marks_id int unique, Physics int(3), Mathematics int(3), Chemistry int(3), Roll_number int(2), foreign key(Roll_number) references students(Roll_number));
+Query OK, 0 rows affected, 4 warnings (0.04 sec)
+
+mysql> insert into marks values(11,70,90,70,2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into marks values(22,80,80,80,1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into marks values(33,90,90,70,3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into marks values(44,88,88,77,4);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from marks;
++----------+---------+-------------+-----------+-------------+
+| Marks_id | Physics | Mathematics | Chemistry | Roll_number |
++----------+---------+-------------+-----------+-------------+
+|       11 |      70 |          90 |        70 |           2 |
+|       22 |      80 |          80 |        80 |           1 |
+|       33 |      90 |          90 |        70 |           3 |
+|       44 |      88 |          88 |        77 |           4 |
++----------+---------+-------------+-----------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select s.Roll_number, s.Student_name, m.Physics, m.Mathematics, m.Chemisttry from students s inner join marks m on s.Roll_number=m.Roll.number;
+ERROR 1054 (42S22): Unknown column 'm.Chemisttry' in 'field list'
+mysql> select s.Roll_number, s.Student_name, m.Physics, m.Mathematics, m.Chemistry from students s inner join marks m on s.Roll_number=m.Roll.number;
+ERROR 1054 (42S22): Unknown column 'm.Roll.number' in 'on clause'
+mysql> select s.Roll_number, s.Student_name, m.Physics, m.Mathematics, m.Chemistry from students s inner join marks m on s.Roll_number=m.Roll_number;
++-------------+--------------+---------+-------------+-----------+
+| Roll_number | Student_name | Physics | Mathematics | Chemistry |
++-------------+--------------+---------+-------------+-----------+
+|           1 | Ramesh       |      80 |          80 |        80 |
+|           2 | Suresh       |      70 |          90 |        70 |
+|           3 | Rajendra     |      90 |          90 |        70 |
+|           4 | Surendra     |      88 |          88 |        77 |
++-------------+--------------+---------+-------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select s.Roll_number, s.Student_name, m.Physics, m.Mathematics, m.Chemistry,(Physics + Mathematics + Chemistry) as Total,((Physics + Mathematics + Chemistry)/3) as Average from students s inner join marks m on s.Roll_number=m.Roll_number;
++-------------+--------------+---------+-------------+-----------+-------+---------+
+| Roll_number | Student_name | Physics | Mathematics | Chemistry | Total | Average |
++-------------+--------------+---------+-------------+-----------+-------+---------+
+|           1 | Ramesh       |      80 |          80 |        80 |   240 | 80.0000 |
+|           2 | Suresh       |      70 |          90 |        70 |   230 | 76.6667 |
+|           3 | Rajendra     |      90 |          90 |        70 |   250 | 83.3333 |
+|           4 | Surendra     |      88 |          88 |        77 |   253 | 84.3333 |
++-------------+--------------+---------+-------------+-----------+-------+---------+
+4 rows in set (0.00 sec)
+
+mysql>
